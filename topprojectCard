@@ -1,0 +1,60 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function App() {
+  const [topProjects, setTopProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchTopProjects = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/top-projects");
+        console.log("Data from API:", response.data); // Log respons lengkap
+
+        // Periksa jika response.data adalah objek dengan properti data
+        if (Array.isArray(response.data)) {
+          setTopProjects(response.data);
+        } else if (response.data.data && Array.isArray(response.data.data)) {
+          // Jika response.data memiliki properti 'data' yang merupakan array
+          setTopProjects(response.data.data);
+        } else {
+          console.error("Data fetched is not an array:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching galleries:", error);
+      }
+    };
+
+    fetchTopProjects();
+  }, []);
+
+  return (
+    <div className="p-4">
+      <h1>topProjects</h1>
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        {topProjects.length > 0 ? (
+          topProjects.map((item) => (
+            <div key={item.id} className="border p-4">
+              <img
+                src={item.thumbnail}
+                alt={item.project_name}
+                className="w-full h-48 object-cover"
+              />
+              <h2 className="text-lg mt-2">{item.project_name}</h2>
+              <p>{item.description || item.description}</p>
+              <a
+                href={item.url_project}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline mt-2 block"
+              >
+                View Portfolio
+              </a>
+            </div>
+          ))
+        ) : (
+          <p>No topProjects available</p>
+        )}
+      </div>
+    </div>
+  );
+}

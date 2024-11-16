@@ -1,0 +1,237 @@
+// // import React, { useEffect, useState } from "react";
+// // import axios from "axios";
+
+// // export default function App() {
+// //   const [galleries, setGalleries] = useState([]);
+
+// //   useEffect(() => {
+// //     const fetchGalleries = async () => {
+// //       try {
+// //         const response = await axios.get("http://localhost:5000/api/galleries");
+// //         console.log("Data from API:", response.data); // Log respons lengkap
+
+// //         // Periksa jika response.data adalah objek dengan properti data
+// //         if (Array.isArray(response.data)) {
+// //           setGalleries(response.data);
+// //         } else if (response.data.data && Array.isArray(response.data.data)) {
+// //           // Jika response.data memiliki properti 'data' yang merupakan array
+// //           setGalleries(response.data.data);
+// //         } else {
+// //           console.error("Data fetched is not an array:", response.data);
+// //         }
+// //       } catch (error) {
+// //         console.error("Error fetching galleries:", error);
+// //       }
+// //     };
+
+// //     fetchGalleries();
+// //   }, []);
+
+// //   return (
+// //     <div className="p-4">
+// //       <h1>Gallery</h1>
+// //       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+// //         {galleries.length > 0 ? (
+// //           galleries.map((gallery) => (
+// //             <div key={gallery.id} className="border p-4">
+// //               <img
+// //                 src={gallery.image}
+// //                 alt={gallery.name}
+// //                 className="w-full h-48 object-cover"
+// //               />
+// //               <h2 className="text-lg mt-2">{gallery.name}</h2>
+// //               <p>{gallery.qoute || gallery.quote}</p>
+// //               <a
+// //                 href={gallery.portfolio_url}
+// //                 target="_blank"
+// //                 rel="noopener noreferrer"
+// //                 className="text-blue-500 underline mt-2 block"
+// //               >
+// //                 View Portfolio
+// //               </a>
+// //             </div>
+// //           ))
+// //         ) : (
+// //           <p>No galleries available</p>
+// //         )}
+// //       </div>
+// //     </div>
+// //   );
+// // }
+
+
+// // // src/components/LoginCard.jsx
+// // import React, { useState } from 'react';
+// // import axios from 'axios';
+
+// // const LoginCard = () => {
+// //   const [email, setEmail] = useState('');
+// //   const [password, setPassword] = useState('');
+// //   const [adminCode, setAdminCode] = useState(''); // Tambahkan adminCode
+// //   const [error, setError] = useState('');
+// //   const [success, setSuccess] = useState('');
+
+// //   const handleSubmit = async (e) => {
+// //     e.preventDefault();
+// //     setError('');
+// //     setSuccess('');
+
+// //     try {
+// //       const response = await axios.post('http://localhost:5000/api/auth/admin/login', {
+// //         email,
+// //         password,
+// //         adminCode, // Kirim adminCode ke server
+// //       });
+// //       setSuccess(response.data.message);
+// //       console.log('Admin login successful', response.data);
+// //       // Simpan token atau lakukan navigasi ke halaman yang diinginkan
+// //     } catch (error) {
+// //       setError(error.response?.data?.message || 'An error occurred');
+// //     }
+// //   };
+
+// //   return (
+// //     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+// //       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+// //         <h2 className="text-2xl font-bold text-center mb-4">Admin Login</h2>
+// //         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+// //         {success && <div className="text-green-500 text-center mb-4">{success}</div>}
+// //         <form onSubmit={handleSubmit}>
+// //           <div className="mb-4">
+// //             <label className="block text-gray-700" htmlFor="email">Email</label>
+// //             <input
+// //               type="email"
+// //               id="email"
+// //               value={email}
+// //               onChange={(e) => setEmail(e.target.value)}
+// //               required
+// //               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500"
+// //             />
+// //           </div>
+// //           <div className="mb-4">
+// //             <label className="block text-gray-700" htmlFor="password">Password</label>
+// //             <input
+// //               type="password"
+// //               id="password"
+// //               value={password}
+// //               onChange={(e) => setPassword(e.target.value)}
+// //               required
+// //               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500"
+// //             />
+// //           </div>
+// //           <div className="mb-4">
+// //             <label className="block text-gray-700" htmlFor="adminCode">Admin Code</label>
+// //             <input
+// //               type="text"
+// //               id="adminCode"
+// //               value={adminCode}
+// //               onChange={(e) => setAdminCode(e.target.value)}
+// //               required
+// //               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500"
+// //             />
+// //           </div>
+// //           <button
+// //             type="submit"
+// //             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+// //           >
+// //             Login
+// //           </button>
+// //         </form>
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // export default LoginCard;
+
+// import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+
+// const AdminDashboard = () => {
+//   const navigate = useNavigate(); // React Router navigate function
+
+//   return (
+//     <div className="p-6">
+//       <div className="flex items-center justify-between mb-4">
+//         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        
+//         <div className="flex gap-2">
+//           <button
+//             onClick={() => navigate('/rute-gallery')}
+//             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//           >
+//             Gallery
+//           </button>
+//           <button
+//             onClick={() => navigate('/rute-project')}
+//             className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+//           >
+//             Top Project
+//           </button>
+//         </div>
+//       </div>
+//       <div className='flex justify-center items-center text-center '>
+//         <h2>
+//           Wellcome To Admin Dashboard
+//         </h2>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;
+
+
+// // components/TopProjects.jsx
+// import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+
+// const TopProjects = () => {
+//   const [topProjects, setTopProjects] = useState([]);
+
+//   useEffect(() => {
+//     const fetchTopProjects = async () => {
+//       try {
+//         const response = await fetch("http://localhost:5000/api/top-projects");
+//         const data = await response.json();
+//         if (data.status === "success") {
+//           setTopProjects(data.data);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching top projects:", error);
+//       }
+//     };
+
+//     fetchTopProjects();
+//   }, []);
+
+//   return (
+//     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+//       {topProjects.map((project) => (
+//         <Link
+//           to={`/top-projects/${project.id}`}
+//           key={project.id}
+//           className="border rounded-lg overflow-hidden shadow-lg"
+//         >
+//           <img
+//             src={project.thumbnail}
+//             alt={project.project_name}
+//             className="w-full h-auto object-cover shadow-lg rounded-[50px] "
+//           />
+//           <div className="p-4">
+//             <h2 className="text-lg font-bold text-center">
+//               {project.project_name}
+//             </h2>
+//             <p className="text-gray-600 text-center">{project.description}</p>
+//           </div>
+//         </Link>
+//       ))}
+
+//       <Link to={"/start"}>
+//         <button>start</button>
+//       </Link>
+//     </div>
+//   );
+// };
+
+// export default TopProjects;
